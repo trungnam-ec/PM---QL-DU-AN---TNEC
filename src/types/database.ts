@@ -94,6 +94,24 @@ export type Project = {
   project_manager?: { full_name: string; avatar_url: string } | null;
 };
 
+export type Contractor = {
+  id: string;
+  code: string;
+  name: string;
+  type: 'ntp' | 'ncc';
+  tax_code: string | null;
+  field: string | null;
+  contact_person: string | null;
+  phone: string | null;
+  email: string | null;
+  address: string | null;
+  rating: number;
+  is_active: boolean;
+  note: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type BankAccount = {
   id: string;
   acc_code: string;

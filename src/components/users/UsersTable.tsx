@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { Search } from 'lucide-react';
+import { Search, UserPlus } from 'lucide-react';
 import {
   Select, SelectTrigger, SelectValue, SelectContent, SelectItem,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { InviteUserDialog } from './InviteUserDialog';
 import { useUsers, useUpdateUser } from '@/lib/hooks/useUsers';
 import { useDepartments } from '@/lib/hooks/useDepartments';
 import {
@@ -136,6 +138,7 @@ export function UsersTable() {
   const { data: departments = [] } = useDepartments();
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('all');
+  const [inviteOpen, setInviteOpen] = useState(false);
 
   const filtered = useMemo(() => {
     return users.filter((u) => {
@@ -179,8 +182,16 @@ export function UsersTable() {
               ))}
             </SelectContent>
           </Select>
+          <Button
+            className="bg-brand-primary hover:bg-brand-primary-hover text-white h-8 text-[12.5px]"
+            onClick={() => setInviteOpen(true)}
+          >
+            <UserPlus className="w-3.5 h-3.5 mr-1.5" /> Thêm thành viên
+          </Button>
         </div>
       </div>
+
+      <InviteUserDialog open={inviteOpen} onClose={() => setInviteOpen(false)} />
 
       {/* Table */}
       <div className="overflow-x-auto">
