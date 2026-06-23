@@ -26,6 +26,11 @@ export function BiddingKanbanBoard() {
   const { data: dbPackages, isLoading } = useAllBidPackages();
   const updatePackageStage = useUpdateBidPackageStage();
   const [packages, setPackages] = useState<BidPackage[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (dbPackages) setPackages(dbPackages);
@@ -50,7 +55,7 @@ export function BiddingKanbanBoard() {
 
   const formatVND = (n: number) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(n);
 
-  if (isLoading) {
+  if (!isMounted || isLoading) {
     return (
       <div className="flex gap-6 overflow-x-auto pb-6">
         {STAGES.slice(0, 5).map((col) => (
