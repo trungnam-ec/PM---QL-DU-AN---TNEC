@@ -29,81 +29,153 @@ export default function FundPage() {
     list.reduce((s, a) => s + (a[k] || 0), 0);
 
   return (
-    <div className="space-y-5 max-w-screen-xl">
-      <div>
-        <h1 className="text-xl font-semibold text-surface-900">Số dư quỹ đa ngân hàng</h1>
-        <p className="text-sm text-surface-500 mt-0.5">Khả dụng vs Phong tỏa theo từng tài khoản & nhánh quản lý.</p>
+    <div className="space-y-6 max-w-screen-xl animate-in fade-in duration-300">
+      {/* Header section with accent strip */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4 border-b border-slate-100">
+        <div>
+          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
+            <span className="w-2.5 h-6 bg-blue-600 rounded-full inline-block"></span>
+            Số dư quỹ đa ngân hàng
+          </h1>
+          <p className="text-sm text-slate-500 mt-1">
+            Khả dụng vs Phong tỏa theo từng tài khoản & nhánh quản lý trong hệ thống Trungnam E&C.
+          </p>
+        </div>
       </div>
 
-      {/* KPI tổng */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="border-surface-200 shadow-sm p-4">
-          <div className="flex items-center gap-2 text-emerald-600"><Wallet className="w-4 h-4" /><span className="text-xs font-medium">Khả dụng</span></div>
-          <p className="text-xl font-bold text-surface-900 mt-2"><CurrencyDisplay amount={totalAvail} /></p>
-        </Card>
-        <Card className="border-surface-200 shadow-sm p-4">
-          <div className="flex items-center gap-2 text-amber-600"><Lock className="w-4 h-4" /><span className="text-xs font-medium">Phong tỏa</span></div>
-          <p className="text-xl font-bold text-surface-900 mt-2"><CurrencyDisplay amount={totalBlocked} /></p>
-        </Card>
-        <Card className="border-brand-primary/30 bg-blue-50/40 shadow-sm p-4">
-          <div className="flex items-center gap-2 text-brand-primary"><Coins className="w-4 h-4" /><span className="text-xs font-medium">Tổng cộng</span></div>
-          <p className="text-xl font-bold text-brand-primary mt-2"><CurrencyDisplay amount={grand} /></p>
-        </Card>
+      {/* KPI Cards section with rich gradients & soft shadows */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        {/* Card 1: Available Balance */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 rounded-2xl p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-bl-full pointer-events-none transition-all duration-300 group-hover:scale-110" />
+          <div className="flex items-center gap-2.5 text-emerald-700">
+            <div className="p-2 bg-emerald-100/80 rounded-xl">
+              <Wallet className="w-5 h-5" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">Số dư khả dụng</span>
+          </div>
+          <div className="mt-4">
+            <p className="text-3xl font-extrabold text-slate-900 tracking-tight font-mono">
+              <CurrencyDisplay amount={totalAvail} />
+            </p>
+          </div>
+        </div>
+
+        {/* Card 2: Blocked Balance */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-amber-50 to-white border border-amber-100 rounded-2xl p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-bl-full pointer-events-none transition-all duration-300 group-hover:scale-110" />
+          <div className="flex items-center gap-2.5 text-amber-700">
+            <div className="p-2 bg-amber-100/80 rounded-xl">
+              <Lock className="w-5 h-5" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-800">Đang phong tỏa</span>
+          </div>
+          <div className="mt-4">
+            <p className="text-3xl font-extrabold text-slate-900 tracking-tight font-mono">
+              <CurrencyDisplay amount={totalBlocked} />
+            </p>
+          </div>
+        </div>
+
+        {/* Card 3: Total Grand Balance */}
+        <div className="group relative overflow-hidden bg-gradient-to-br from-blue-50 to-white border border-blue-100 rounded-2xl p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-bl-full pointer-events-none transition-all duration-300 group-hover:scale-110" />
+          <div className="flex items-center gap-2.5 text-blue-700">
+            <div className="p-2 bg-blue-100/80 rounded-xl">
+              <Coins className="w-5 h-5" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-800">Tổng cộng quỹ</span>
+          </div>
+          <div className="mt-4">
+            <p className="text-3xl font-extrabold text-blue-600 tracking-tight font-mono">
+              <CurrencyDisplay amount={grand} />
+            </p>
+          </div>
+        </div>
       </div>
 
       {isLoading ? (
-        <Card className="border-surface-200 p-8 text-center text-surface-400 text-sm">Đang tải...</Card>
+        <div className="bg-white border border-slate-100 rounded-2xl p-16 text-center shadow-sm">
+          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-slate-400 font-medium">Đang tải thông tin quỹ...</p>
+        </div>
       ) : accounts.length === 0 ? (
-        <Card className="border-surface-200 shadow-sm py-16 text-center">
-          <Landmark className="w-10 h-10 text-surface-300 mx-auto mb-2" />
-          <p className="text-sm text-surface-400">Chưa có tài khoản. Thêm ở mục Tài khoản NH.</p>
-        </Card>
+        <div className="bg-white border border-slate-100 rounded-2xl py-20 text-center shadow-sm">
+          <Landmark className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+          <p className="text-base font-semibold text-slate-700">Chưa có tài khoản nào</p>
+          <p className="text-sm text-slate-400 mt-1 max-w-sm mx-auto">
+            Vui lòng thêm tài khoản ngân hàng mới tại mục <strong>Tài khoản NH</strong> để hệ thống bắt đầu thống kê.
+          </p>
+        </div>
       ) : (
-        <div className="space-y-5">
-          {groups.map(([branch, list]) => (
-            <Card key={branch} className="border-surface-200 shadow-sm overflow-hidden">
-              <div className="px-5 py-3 bg-surface-50 border-b border-surface-100 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Landmark className="w-4 h-4 text-surface-400" />
-                  <h3 className="text-sm font-bold text-surface-800">{branch}</h3>
-                  <span className="text-xs text-surface-400">({list.length} TK)</span>
+        <div className="space-y-6">
+          {groups.map(([branch, list]) => {
+            const grAvail = sumGroup(list, 'available_balance');
+            const grBlocked = sumGroup(list, 'blocked_balance');
+            const grTotal = grAvail + grBlocked;
+
+            return (
+              <div key={branch} className="bg-white border border-slate-150 rounded-2xl shadow-sm overflow-hidden transition-all duration-200 hover:border-slate-300">
+                {/* Header of group */}
+                <div className="px-6 py-4 bg-slate-50/80 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-1.5 bg-blue-100 rounded-lg text-blue-700">
+                      <Landmark className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        {branch}
+                        <span className="px-2 py-0.5 text-[10px] font-semibold bg-slate-200 text-slate-600 rounded-full">
+                          {list.length} TK
+                        </span>
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  {/* Branch aggregate info using pill design */}
+                  <div className="flex flex-wrap items-center gap-3 text-xs bg-white border border-slate-100 px-3 py-1.5 rounded-xl font-mono">
+                    <span className="text-slate-500">Khả dụng: <strong className="text-emerald-700 font-bold"><CurrencyDisplay amount={grAvail} /></strong></span>
+                    <span className="text-slate-200">|</span>
+                    <span className="text-slate-500">Phong tỏa: <strong className="text-amber-700 font-bold"><CurrencyDisplay amount={grBlocked} /></strong></span>
+                    <span className="text-slate-200">|</span>
+                    <span className="text-slate-800 font-extrabold">Tổng: <CurrencyDisplay amount={grTotal} /></span>
+                  </div>
                 </div>
-                <div className="flex gap-5 text-xs">
-                  <span className="text-emerald-600 font-mono font-semibold"><CurrencyDisplay amount={sumGroup(list, 'available_balance')} /></span>
-                  <span className="text-amber-600 font-mono font-semibold"><CurrencyDisplay amount={sumGroup(list, 'blocked_balance')} /></span>
+
+                {/* Account list table */}
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="border-b border-slate-100 bg-slate-50/30 text-xs text-slate-500 font-bold uppercase tracking-wider text-left">
+                        <th className="px-6 py-3 w-[160px]">Số tài khoản</th>
+                        <th className="px-4 py-3 min-w-[280px]">Tên tài khoản</th>
+                        <th className="px-4 py-3 text-right w-[180px]">Khả dụng</th>
+                        <th className="px-4 py-3 text-right w-[180px]">Phong tỏa</th>
+                        <th className="px-6 py-3 text-right w-[190px]">Tổng cộng</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {list.map((a) => {
+                        const total = (a.available_balance || 0) + (a.blocked_balance || 0);
+                        return (
+                          <tr key={a.id} className="border-b border-slate-50 last:border-0 hover:bg-slate-50/50 transition-colors duration-150">
+                            <td className="px-6 py-3.5 font-mono text-xs text-slate-500 font-medium">{a.account_number}</td>
+                            <td className="px-4 py-3.5 text-sm font-semibold text-slate-800">{a.account_name}</td>
+                            <td className="px-4 py-3.5 text-right font-mono text-sm font-bold text-emerald-600"><CurrencyDisplay amount={a.available_balance || 0} /></td>
+                            <td className="px-4 py-3.5 text-right font-mono text-sm font-bold text-amber-600"><CurrencyDisplay amount={a.blocked_balance || 0} /></td>
+                            <td className="px-6 py-3.5 text-right font-mono text-sm font-black text-slate-900 bg-slate-50/20"><CurrencyDisplay amount={total} /></td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-surface-100 text-xs text-surface-500 uppercase tracking-wider">
-                      <th className="text-left font-medium px-5 py-2 w-[140px]">STK</th>
-                      <th className="text-left font-medium px-3 py-2 min-w-[240px]">Tên tài khoản</th>
-                      <th className="text-right font-medium px-3 py-2 w-[150px]">Khả dụng</th>
-                      <th className="text-right font-medium px-3 py-2 w-[150px]">Phong tỏa</th>
-                      <th className="text-right font-medium px-5 py-2 w-[160px]">Tổng cộng</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {list.map((a) => {
-                      const total = (a.available_balance || 0) + (a.blocked_balance || 0);
-                      return (
-                        <tr key={a.id} className="border-b border-surface-50 last:border-0 hover:bg-surface-50/50">
-                          <td className="px-5 py-2.5 font-mono text-xs text-surface-500">{a.account_number}</td>
-                          <td className="px-3 py-2.5 text-sm text-surface-800">{a.account_name}</td>
-                          <td className="px-3 py-2.5 text-right font-mono text-sm text-emerald-700"><CurrencyDisplay amount={a.available_balance || 0} /></td>
-                          <td className="px-3 py-2.5 text-right font-mono text-sm text-amber-700"><CurrencyDisplay amount={a.blocked_balance || 0} /></td>
-                          <td className="px-5 py-2.5 text-right font-mono text-sm font-semibold text-surface-900"><CurrencyDisplay amount={total} /></td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </Card>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
   );
 }
+
