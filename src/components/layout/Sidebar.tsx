@@ -54,6 +54,7 @@ const NAV_ITEMS: {
   { group: 'PHÒNG TCKT', icon: Scale,           label: 'Cân nguồn',     href: '/finance/balance-report', module: 'finance' },
   { group: 'PHÒNG TCKT', icon: CalendarRange,   label: 'Kế hoạch dòng tiền', href: '/finance/plan', module: 'finance' },
   { group: 'PHÒNG TCKT', icon: Banknote,        label: 'Dòng tiền',     href: '/finance/cashflow', module: 'finance' },
+  { group: 'PHÒNG TCKT', icon: Layers,          label: 'Thu chi theo DA', href: '/finance/by-project', module: 'finance' },
   { group: 'PHÒNG TCKT', icon: Upload,          label: 'Import sao kê', href: '/finance/import', module: 'finance' },
   { group: 'PHÒNG TCKT', icon: Lock,            label: 'Phong tỏa / Giải tỏa', href: '/finance/escrow', module: 'finance' },
   { group: 'PHÒNG TCKT', icon: FileCheck2,      label: 'Đề nghị chi',   href: '/finance/requests', module: 'finance' },
