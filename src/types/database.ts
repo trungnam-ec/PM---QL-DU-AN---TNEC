@@ -45,13 +45,31 @@ export interface Transaction {
   transaction_date: string;
   note?: string;
   status: 'pending' | 'completed' | 'cancelled';
+  transaction_code?: string | null;
+  partner_name?: string | null;
+  voucher?: string | null;
+  project_name?: string | null;
+  source?: string;
   created_at: string;
   updated_at: string;
-  
+
   // Joined fields
   project?: Project;
   contract?: Contract;
 }
+
+// 1 dòng giao dịch sau khi bóc tách từ sao kê, sẵn sàng ghi sổ
+export type ParsedBankRow = {
+  transaction_code: string | null;
+  transaction_date: string;        // ISO yyyy-mm-dd
+  type: 'in' | 'out';
+  amount: number;
+  partner_name: string | null;
+  note: string | null;
+  voucher: string | null;
+  project_name: string | null;
+  project_id: string | null;        // map được thì điền
+};
 
 export type Profile = {
   id: string;
@@ -108,6 +126,8 @@ export type Contractor = {
   rating: number;
   is_active: boolean;
   note: string | null;
+  category: string | null;
+  transaction_count: number;
   created_at: string;
   updated_at: string;
 };
@@ -120,6 +140,78 @@ export type BankAccount = {
   bank_name: string;
   branch: string | null;
   project_group: string | null;
+  available_balance: number;
+  blocked_balance: number;
+  is_active: boolean;
+  balance_updated_at: string | null;
+  created_at: string;
+};
+
+export type EscrowRelease = {
+  id: string;
+  project_id: string | null;
+  project_name: string;
+  total_income: number;
+  total_expense: number;
+  deposit: number;
+  fee: number;
+  note: string | null;
+  period_label: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CashflowPlan = {
+  id: string;
+  project_id: string | null;
+  project_name: string;
+  type: 'thu' | 'chi';
+  source: 'available' | 'blocked';
+  amount: number;
+  week: number | null;
+  month: number | null;
+  year: number | null;
+  note: string | null;
+  created_at: string;
+};
+
+export type PaymentRequest = {
+  id: string;
+  code: string;
+  project_id: string | null;
+  project_name: string | null;
+  partner_name: string | null;
+  category: string | null;
+  content: string | null;
+  amount: number;
+  status: 'pending' | 'approved' | 'rejected' | 'paid';
+  current_level: number;
+  max_level: number;
+  requested_by: string | null;
+  requester_name: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type PaymentApproval = {
+  id: string;
+  request_id: string;
+  level: number;
+  approver_id: string | null;
+  approver_name: string | null;
+  action: 'approve' | 'reject';
+  note: string | null;
+  created_at: string;
+};
+
+export type ProjectBalance = {
+  id: string;
+  project_id: string | null;
+  project_name: string;
+  available_opening: number;
+  blocked_opening: number;
+  period_label: string | null;
+  bank_accounts_note: string | null;
   created_at: string;
 };
 

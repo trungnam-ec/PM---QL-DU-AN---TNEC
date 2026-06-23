@@ -24,7 +24,10 @@ export function useCreateBankAccount() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (newAcc: Omit<BankAccount, 'id' | 'created_at'>) => {
+    mutationFn: async (
+      newAcc: Pick<BankAccount, 'acc_code' | 'account_number' | 'account_name' | 'bank_name' | 'branch' | 'project_group'> &
+        Partial<Pick<BankAccount, 'available_balance' | 'blocked_balance' | 'is_active'>>
+    ) => {
       const { data, error } = await supabase
         .from('bank_accounts')
         .insert([newAcc])

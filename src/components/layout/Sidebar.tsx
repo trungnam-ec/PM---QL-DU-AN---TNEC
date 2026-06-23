@@ -18,6 +18,13 @@ import {
   BarChart3,
   PieChart,
   ShieldCheck,
+  Coins,
+  Scale,
+  Lock,
+  Landmark,
+  Upload,
+  CalendarRange,
+  FileCheck2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { UserNav } from './UserNav';
@@ -43,9 +50,15 @@ const NAV_ITEMS: {
   { group: 'PHÒNG QLDA', icon: FileText,        label: 'Hợp đồng B-C',  href: '/contracts/bc', module: 'contracts' },
   { group: 'PHÒNG QLDA', icon: Users,           label: 'NTP / NCC',     href: '/contractors', module: 'projects' },
 
+  { group: 'PHÒNG TCKT', icon: Coins,           label: 'Số dư quỹ',     href: '/finance/fund', module: 'finance' },
+  { group: 'PHÒNG TCKT', icon: Scale,           label: 'Cân nguồn',     href: '/finance/balance-report', module: 'finance' },
+  { group: 'PHÒNG TCKT', icon: CalendarRange,   label: 'Kế hoạch dòng tiền', href: '/finance/plan', module: 'finance' },
   { group: 'PHÒNG TCKT', icon: Banknote,        label: 'Dòng tiền',     href: '/finance/cashflow', module: 'finance' },
+  { group: 'PHÒNG TCKT', icon: Upload,          label: 'Import sao kê', href: '/finance/import', module: 'finance' },
+  { group: 'PHÒNG TCKT', icon: Lock,            label: 'Phong tỏa / Giải tỏa', href: '/finance/escrow', module: 'finance' },
+  { group: 'PHÒNG TCKT', icon: FileCheck2,      label: 'Đề nghị chi',   href: '/finance/requests', module: 'finance' },
   { group: 'PHÒNG TCKT', icon: CreditCard,      label: 'Thanh toán',    href: '/finance/payments', module: 'finance' },
-  { group: 'PHÒNG TCKT', icon: Building2,       label: 'Tài khoản NH',  href: '/finance/bank-accounts', module: 'finance' },
+  { group: 'PHÒNG TCKT', icon: Landmark,        label: 'Tài khoản NH',  href: '/finance/bank-accounts', module: 'finance' },
 
   { group: 'BÁO CÁO',    icon: BarChart3,       label: 'Báo cáo tuần',  href: '/reports/weekly', module: 'reports' },
   { group: 'BÁO CÁO',    icon: PieChart,        label: 'Báo cáo tháng', href: '/reports/monthly', module: 'reports' },
