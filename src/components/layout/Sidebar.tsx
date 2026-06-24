@@ -25,6 +25,7 @@ import {
   Upload,
   CalendarRange,
   FileCheck2,
+  Layers,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { UserNav } from './UserNav';
